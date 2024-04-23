@@ -2,19 +2,16 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: bluegreen-demo-preview
-  annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: "100m"
-    kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/app-root: /
 spec:
+  ingressClassName: nginx
   rules:
-  - host: blue-green-preview.dev.caruso.systems
-    http:
-      paths:
-      - path: /
-        pathType: Prefix
-        backend:
-          service:
-            name: bluegreen-demo-preview
-            port:
-              name: http
+    - host: blue-green-preview.dev.caruso.systems
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: bluegreen-demo-preview
+                port:
+                  number: 80
